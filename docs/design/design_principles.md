@@ -32,3 +32,31 @@
 12. **Low coupling and high cohesion**: Classes should be as independent as possible; Everything in a class should be related to the class's single purpose.
 
 ## Justification for each
+1. **Encapsulation**: ✅ FileAnalyzer encapsulates the file path and analysis logic with its ClassInfo data. 
+
+2. **Delegation**: ✅LinterMain delegates the linting checks to CheckRunner, which further delegates to individual Check implementations. LinterMain also delegates file analyzing to FileAnalyzer class which delegates to ASM.
+
+3. **Information hiding**: ✅ Checks hide their violation detection algorithms—users just call run() and get a boolean result.
+
+4. **Encapsulate what varies**: ✅ The different linting rules are encapsulated behind the Check interface, so new checks can be added easily. 
+
+5. **Favor composition over inheritance**: ✅ CheckRunner has a list of checks, which is composition. 
+
+6. **Program to interface, not implementation**: ✅ the CheckRunner depends on the Check interface, not specific implementations of checks (new checks can be swapped easily).
+
+7. **Strive for loosely coupled designs between objects that interact**: ✅ Checks don't know about each other (only depend on Class Info)
+
+8. **Open-Closed Principle**: ✅ New linting rules can be added by creating new classes that implement the Check interface without modifying existing CheckRunner
+
+9. **Hollywood Principle**: ✅ High-level CheckRunner controls when low-level Check implementations execute. LinterMain orchestrates FileAnalyzer and CheckRunner.
+
+10. **Principle of Least Knowledge**: ✅ Checks don't access data directly instead they get processed data from ClassInfo
+
+11. **SOLID**
+    - **Single Responsibility Principle**: 🆗 each class has its own check for the most part, e.g. FileAnalyzer analyzes one file, CheckRunner runs check, Check specifies one rule at a time, and ClassInfo holds class metadata. Although the LinterMain has a few responsibilities, e.g. parse command lines, validate files that exist, and handle output, this was seen as the simplest way to implement the code because otherwise this would require additional classes for each of these tasks that are on the smaller side.  
+    - **Open/Closed Principle**: ✅ (already justified as #8)
+    - **Liskov Substitution Principle**: ✅ Any check implementation can be substituted for another
+    - **Interface Segregation Principle**: ✅ The check interface is minimal (3 methods which are all necessary)
+    - **Dependency Inversion Principle**: ✅ CheckRunner depends on abstraction check, not concrete classes. 
+
+12. **Low coupling and high cohesion**: ✅ low coupling was justified already, as for high cohesion, each class has its own purpose e.g. FileAnalyzer analyzes files, CheckRunner runs checks, Check specifies one rule at a time, and ClassInfo holds class metadata.

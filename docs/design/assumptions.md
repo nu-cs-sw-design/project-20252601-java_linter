@@ -2,8 +2,7 @@
 
 ## Document Assumptions
 
-**For simplicity, I am planning to start with one file and only say if it's a failure or success. Later, more detail, e.g. what line number failed, can be added.**
-
+**For simplicity, I will only say if it's a failure or success. Later, more detail, e.g. what line failed, can be added.**
 ## Flow of the Program
 
 1. In the terminal, the program is started
@@ -14,6 +13,7 @@
 
 4. The user enters their file path
     - *It must only work on .class files*
+    - Directories can be accepted (use a loop to go through each .class file in the directory)
 
 5. If it doesn't exist or the file extension name is wrong, the user gets an error message telling them that the file does not exist
 
