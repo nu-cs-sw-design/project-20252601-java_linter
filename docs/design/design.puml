@@ -2,29 +2,25 @@
 
 class LinterMain {
   + {static} main(args: String[]): void
-  - fileExists(filePath: String): boolean
 }
 
 class FileAnalyzer {
-  - filePath: String
+  - classNode: ClassNode
   - classInfo: ClassInfo
-  + FileAnalyzer(filePath: String)
+  + FileAnalyzer(classNode: ClassNode)
   - analyze(): void
   + getClassInfo(): ClassInfo
 }
 
 class ClassInfo {
   - className: String
-  - methods: List<MethodInfo>
-  - fields: List<FieldInfo>
   - hasEquals: boolean
   - hasHashCode: boolean
-  - constructors: List<ConstructorInfo>
+  - hasPublicConstructor: boolean
   + getClassName(): String
-  + getMethods(): List<MethodInfo>
   + hasEquals(): boolean
   + hasHashCode(): boolean
-  + getConstructors(): List<ConstructorInfo>
+  + hasPublicConstructor(): boolean
 }
 
 class CheckRunner {
@@ -71,4 +67,3 @@ Check <|.. PublicConstructorCheck : implements
 CheckRunner ..> FileAnalyzer : uses
 
 @enduml
-
