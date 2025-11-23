@@ -44,6 +44,7 @@ public class LinterMain {
         }
         else if (directory.isFile() && filePath.endsWith(".class")) {
             // analyze the single .class file
+            System.out.println("=== Analyzing: " + directory.getName() + " ===");
             analyzeFile(directory);
         } else {
             System.out.println("Please provide a valid .class file or directory containing .class files.");
@@ -65,6 +66,8 @@ public class LinterMain {
 
         } catch (IOException e) {
             System.out.println("Error reading file: " + classFile.getName());
+        } catch (ArrayIndexOutOfBoundsException | IllegalArgumentException e) {
+            System.out.println("Invalid .class file format: " + classFile.getName());
         }
     }
 }
