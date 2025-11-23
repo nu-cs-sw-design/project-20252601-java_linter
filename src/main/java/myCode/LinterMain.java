@@ -59,10 +59,10 @@ public class LinterMain {
             ClassNode classNode = new ClassNode();
             reader.accept(classNode, ClassReader.EXPAND_FRAMES);
 
-//            FileAnalyzer analyzer = new FileAnalyzer(classNode);
-//
-//            CheckRunner runner = new CheckRunner();
-//            runner.runAllChecks(analyzer);
+            FileAnalyzer analyzer = new FileAnalyzer(classNode);
+
+            CheckRunner runner = new CheckRunner();
+            runner.runAllChecks(analyzer);
 
         } catch (IOException e) {
             System.out.println("Error reading file: " + classFile.getName());

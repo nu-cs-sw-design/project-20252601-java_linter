@@ -14,7 +14,7 @@ java {
 
 apply plugin : "java"
 ext {
-    javaMainClass = "example.MyFirstLinter"
+    javaMainClass = "myCode.LinterMain"
 }
 
 application {
