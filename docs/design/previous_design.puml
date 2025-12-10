@@ -1,0 +1,73 @@
+@startuml Java Linter Design
+
+class LinterMain {
+  + {static} main(args: String[]): void
+  - fileExists(filePath: String): boolean
+}
+
+class FileAnalyzer {
+  - filePath: String
+  - classInfo: ClassInfo
+  + FileAnalyzer(filePath: String)
+  - analyze(): void
+  + getClassInfo(): ClassInfo
+}
+
+class ClassInfo {
+  - className: String
+  - methods: List<MethodInfo>
+  - fields: List<FieldInfo>
+  - hasEquals: boolean
+  - hasHashCode: boolean
+  - constructors: List<ConstructorInfo>
+  + getClassName(): String
+  + getMethods(): List<MethodInfo>
+  + hasEquals(): boolean
+  + hasHashCode(): boolean
+  + getConstructors(): List<ConstructorInfo>
+}
+
+class CheckRunner {
+  - checks: List<Check>
+  + CheckRunner()
+  + runAllChecks(analyzer: FileAnalyzer): void
+  - displayResults(check: Check, passed: boolean): void
+}
+
+interface Check {
+  + run(classInfo: ClassInfo): boolean
+  + getName(): String
+  + getViolations(): String
+}
+
+class NamingConventionCheck {
+  - violations: String
+  + run(classInfo: ClassInfo): boolean
+  + getName(): String
+  + getViolations(): String
+}
+
+class EqualsHashCodeCheck {
+  - violations: String
+  + run(classInfo: ClassInfo): boolean
+  + getName(): String
+  + getViolations(): String
+}
+
+class PublicConstructorCheck {
+  - violations: String
+  + run(classInfo: ClassInfo): boolean
+  + getName(): String
+  + getViolations(): String
+}
+
+LinterMain ..> FileAnalyzer : creates
+LinterMain ..> CheckRunner : creates
+FileAnalyzer --> ClassInfo : contains
+CheckRunner o--> Check : manages
+Check <|.. NamingConventionCheck : implements
+Check <|.. EqualsHashCodeCheck : implements
+Check <|.. PublicConstructorCheck : implements
+CheckRunner ..> FileAnalyzer : uses
+
+@enduml
